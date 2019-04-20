@@ -1,0 +1,98 @@
+﻿@model empData
+@{
+    ViewBag.Title = "EmployeeForm";
+}
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<h2>EmployeeForm</h2>
+<h2>Add Employees</h2>
+<div>
+  @using (Ajax.BeginForm("EmployeeForm", "Admin", new AjaxOptions() { UpdateTargetId = "tablebody", InsertionMode = InsertionMode.InsertAfter }))
+  {
+        @Html.ValidationSummary()
+      
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.remp.Fname)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.remp.Fname)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.remp.Lname)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.remp.Lname)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.remp.BDate)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.remp.BDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.remp.Address)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.remp.Address)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.remp.Email)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.remp.Email)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.remp.PhoneNumber)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.remp.PhoneNumber)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.remp.Password)
+            </dt>
+
+            <dd>
+                @Html.PasswordFor(model => model.remp.Password)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.remp.ConfirmPassword)
+            </dt>
+
+            <dd>
+                @Html.PasswordFor(model => model.remp.ConfirmPassword)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.emp.HireDate)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.emp.HireDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.emp.Salary)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.emp.Salary)
+            </dd>
+        </dl>
+            <input type="submit" class="btn btn-warning form-control" />
+    }
+    @Html.ActionLink("Show Employees", "ShowEmployees")
+    |
+    @Html.ActionLink("View Profile", "ViewProfile")
+    |
+    @Html.ActionLink("Show Books", "ShowBooks")
+</div>
+<div id="div1">
+    @{Html.RenderAction("EmployeeFormpartial", "Admin", ViewBag.emps as List<Employee>);}
+</div>
+

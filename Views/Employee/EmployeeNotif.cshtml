@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Employee>
+<h2>Show Employees</h2>
+<div>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.Fname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.Lname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.BDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.PhoneNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.HireDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.Salary)
+                </th>
+                <th>
+                    Operations
+                </th>
+            </tr>
+        </thead>
+        <tbody id="tablebody">
+            @foreach (var item in Model)
+            {
+                if (item.ChangedByBasicAdminToAdmins == true)
+                {
+                <tr id="@item.Id">
+                    <td class="empvFname">
+                        @item.ApplicationUser.Fname
+                    </td>
+                    <td class="empvLname">
+                        @item.ApplicationUser.Lname
+                    </td>
+                    <td class="empvBDate">
+                        @item.ApplicationUser.BDate.Date
+                    </td>
+                    <td class="empvAddress">
+                        @item.ApplicationUser.Address
+                    </td>
+                    <td class="empvEmail">
+                        @item.ApplicationUser.Email
+                    </td>
+                    <td class="empvPhoneNumber">
+                        @item.ApplicationUser.PhoneNumber
+                    </td>
+                    <td class="empvHireDate">
+                        @item.HireDate.Date
+                    </td>
+                    <td class="empvSalary">
+                        @item.Salary
+                    </td>
+                    <td>
+                        @Ajax.ActionLink("OK", "EmployeeNotifed", "Employee", new { id = item.Id },
+                     new AjaxOptions()
+                     {
+                         OnComplete = "EmployeeNotifed(this)"
+                     }, new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+                }
+
+            }
+        </tbody>
+    </table>
+   
+</div>
+
+
+

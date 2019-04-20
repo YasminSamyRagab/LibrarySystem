@@ -1,0 +1,45 @@
+﻿@model empData
+
+<tr id="@Model.emp.Id">
+    <td class="empvFname">
+        @Model.remp.Fname
+    </td>
+    <td class="empvLname">
+        @Model.remp.Lname
+    </td>
+    <td class="empvBDate">
+        @Model.remp.BDate.Date
+    </td>
+    <td class="empvAddress">
+        @Model.remp.Address
+    </td>
+    <td class="empvEmail">
+        @Model.remp.Email
+    </td>
+    <td class="empvPhoneNumber">
+        @Model.remp.PhoneNumber
+    </td>
+    <td class="empvHireDate">
+        @Model.emp.HireDate.Date
+    </td>
+    <td class="empvSalary">
+        @Model.emp.Salary
+    </td>
+    <td>
+        @Ajax.ActionLink("Edit", "EditEmployee", "Employee", new { id = Model.emp.Id },
+                        new AjaxOptions()
+                        {
+                            UpdateTargetId = "mdbdy",
+                            InsertionMode = InsertionMode.Replace,
+                            OnComplete = "EditEmployee"
+                        },
+                       new { @class = "btn btn-success" })
+        |
+        @Ajax.ActionLink("Delete", "DeleteEmployee", "Employee", new { id = Model.emp.Id },
+                     new AjaxOptions()
+                     {
+                         OnComplete = "DeleteEmployee(this)"
+                     }, new { @class = "btn btn-danger" })
+    </td>
+</tr>
+

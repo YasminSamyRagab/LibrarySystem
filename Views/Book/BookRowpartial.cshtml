@@ -1,0 +1,46 @@
+﻿@model Book
+<tr>
+    <td>
+        @Model.Title
+    </td>
+    <td>
+        @Model.Author
+    </td>
+    <td>
+        @Model.Category
+    </td>
+    <td>
+        @Model.Edition
+    </td>
+    <td>
+        @Model.NoOfCopies
+    </td>
+    <td>
+        @Model.Pages
+    </td>
+    <td>
+        @Model.Publisher
+    </td>
+    <td>
+        @Model.PublishingDate.Date
+    </td>
+    <td>
+        @Model.ShelfNumber
+    </td>
+    <td>
+        @Ajax.ActionLink("Edit", "EditBook", "Book", new { id = Model.BookID },
+                        new AjaxOptions()
+                        {
+                            UpdateTargetId = "mdbdy",
+                            InsertionMode = InsertionMode.Replace,
+                            OnSuccess = "EditBook"
+                        },
+                       new { @class = "btn btn-success" })
+        |
+        @Ajax.ActionLink("Delete", "DeleteBook", "Book", new { id = Model.BookID },
+                     new AjaxOptions()
+                     {
+                         OnSuccess = "DeleteBook(this)"
+                     }, new { @class = "btn btn-danger" })
+    </td>
+</tr>

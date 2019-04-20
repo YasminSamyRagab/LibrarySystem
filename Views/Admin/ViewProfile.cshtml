@@ -1,0 +1,138 @@
+﻿@model Admin
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h1> @ViewBag.Title </h1>
+    @if (Model.ChangedByBasicAdmin == true)
+            {
+        <h2 id="mod">Your data has been modified.</h2>
+    }
+    @if (Model.ApplicationUser.Photo != null)
+    {
+        <img src=@Model.ApplicationUser.Photo style="border-radius: 50%; width:100px; height:100px;"/>
+    }
+    
+    <dl class="dl-horizontal">
+       
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUser.Fname)
+        </dt>
+
+        <dd id = "vfname" >
+            @Html.DisplayFor(model => model.ApplicationUser.Fname)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUser.Lname)
+        </dt>
+
+        <dd id = "vlname" >
+            @Html.DisplayFor(model => model.ApplicationUser.Lname )
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUser.BDate)
+        </dt>
+
+        <dd id = "vBDate" >
+            @Html.DisplayFor(model => Model.ApplicationUser.BDate.Date)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUser.Address)
+        </dt>
+
+        <dd id = "vAddress" >
+            @Html.DisplayFor(model => model.ApplicationUser.Address)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUser.Email)
+        </dt>
+
+        <dd id = "vEmail">
+            @Html.DisplayFor(model => model.ApplicationUser.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUser.PhoneNumber)
+        </dt>
+
+        <dd id = "vPhoneNumber">
+            @Html.DisplayFor(model => model.ApplicationUser.PhoneNumber)
+        </dd>
+    </dl>
+
+    @if (Model.ChangedByBasicAdmin == true)
+    { 
+        @Ajax.ActionLink("OK", "ViewProfile", "Admin","", new AjaxOptions() {
+       HttpMethod="POST",
+       OnSuccess = "remove(this)"
+    }, 
+    new { @class = "btn btn-success" })
+       
+    }
+    <hr />
+    <hr />
+    @Ajax.ActionLink("Edit Profile", "EditProfile", "Admin", "", new AjaxOptions()
+{
+    UpdateTargetId = "mdbdy",
+    InsertionMode = InsertionMode.Replace,
+    OnSuccess = "Editprofile"
+},
+    new { @class = "btn btn-success" }
+    )
+
+    @Ajax.ActionLink("Change Password", "ChangePassword", "Manage", "", new AjaxOptions()
+{
+    UpdateTargetId = "mdbdy",
+    InsertionMode = InsertionMode.Replace,
+    OnSuccess = "ChangePassword"
+},
+    new { @class = "btn btn-success" }
+    )
+    @Html.ActionLink("Show Employees", "EmployeeForm", "Employee")
+    |
+    @Html.ActionLink("Show Books", "ShowBooks", "Book")
+</div>
+
+<div class="modal" id="div3">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Edit Profile
+            </div>
+            <div class="modal-body" id="mdbdy">
+            </div>
+            <div class="modal-footer">
+                <button class="close" data-dismiss="modal">&times;</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.js" type="text/javascript"></script>
+
+
+    <script>
+        function Editprofile() {
+            $("#div3").modal({ show: true });
+        }
+        function ChangePassword() {
+            $("#div3").modal({ show: true });
+        }
+        
+        function remove(Button) {
+            $(Button).remove();
+            $("#mod").remove()
+        }
+        function Edit() {
+            $("#div3").modal('hide');
+            $("#vfname").html($("#mfname").val());
+            $("#vlname").html($("#mlname").val());
+            $("#vBDate").html($("#mBDate").val());
+            $("#vAddress").html($("#mAddress").val());
+            $("#vEmail").html($("#mEmail").val());
+            $("#vPhoneNumber").html($("#mPhoneNumber").val());
+            $("#vUserName").html($("#mUserName").val());
+        }
+    </script>
+

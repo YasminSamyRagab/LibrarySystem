@@ -1,0 +1,45 @@
+﻿@model adData
+
+<tr id="@Model.ad.Id">
+    <td class="advFname">
+        @Model.rad.Fname
+    </td>
+    <td class="advLname">
+        @Model.rad.Lname
+    </td>
+    <td class="advBDate">
+        @Model.rad.BDate.Date
+    </td>
+    <td class="advAddress">
+        @Model.rad.Address
+    </td>
+    <td class="advEmail">
+        @Model.rad.Email
+    </td>
+    <td class="advPhoneNumber">
+        @Model.rad.PhoneNumber
+    </td>
+    <td class="advHireDate">
+        @Model.ad.HireDate.Date
+    </td>
+    <td class="advSalary">
+        @Model.ad.Salary
+    </td>
+    <td>
+        @Ajax.ActionLink("Edit", "EditAdmin", "Admin", new { id = Model.ad.Id },
+                        new AjaxOptions()
+                        {
+                            UpdateTargetId = "mdbdy",
+                            InsertionMode = InsertionMode.Replace,
+                            OnComplete = "EditAdmin"
+                        },
+                       new { @class = "btn btn-success" })
+        |
+        @Ajax.ActionLink("Delete", "DeleteAdmin", "Admin", new { id = Model.ad.Id },
+                     new AjaxOptions()
+                     {
+                         OnComplete = "DeleteAdmin(this)"
+                     }, new { @class = "btn btn-danger" })
+    </td>
+</tr>
+

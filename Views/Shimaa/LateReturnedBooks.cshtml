@@ -1,0 +1,19 @@
+﻿@model IEnumerable<MemberBook>
+@{
+    ViewBag.Title = "LateReturnedBooks";
+}
+
+<h2>LateReturnedBooks</h2>
+
+
+@foreach(var item in Model)
+{
+    if(item.ReturnDate==null || item.ReturnDate > ((DateTime)item.BorrowDate).AddDays(14))
+    {
+        <h1> Where is the book </h1>
+    }
+    else
+    {
+        <h1> Mo7taram </h1>
+    }
+}

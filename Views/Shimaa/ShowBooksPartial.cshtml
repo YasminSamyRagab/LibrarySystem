@@ -1,0 +1,33 @@
+﻿@model List<Book>
+
+
+<table class="table table-bordered" id="table">
+    <tr>
+        <th>Publishing Date</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Publisher</th>
+        <th>Category</th>
+        <th>Status</th>
+    </tr>
+    @foreach (Book bk in Model)
+    {
+        <tr>
+            <td>@bk.PublishingDate.Year</td>
+            <td>@bk.Title</td>
+            <td>@bk.Author</td>
+            <td>@bk.Publisher</td>
+            <td>@bk.Category</td>
+            <td>
+                @if (bk.NoOfAvailableCopies > 1)
+                {
+                    <button class="btn-success">Available</button>
+                }
+                else
+                {
+                    <button class="btn-danger">Not Available</button>
+                }
+            </td>
+        </tr>
+    }
+</table>

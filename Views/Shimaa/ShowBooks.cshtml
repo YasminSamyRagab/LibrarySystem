@@ -1,0 +1,60 @@
+﻿@model  Book
+@{
+    ViewBag.Title = "ShowBooks";
+}
+
+<h2>ShowBooks</h2>
+<div>
+    @using (Ajax.BeginForm("ShowBooksPartial", "Member", "", new AjaxOptions()
+    {
+        UpdateTargetId = "SearchDiv",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+    }, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.LabelFor(m => m.Category, new { @class = "col-sm-3 label-control" })
+		</dt>
+
+		<dd>
+			@Html.TextBoxFor(m => m.Category, new { @class = "form-control" })
+		</dd>
+		<dt>
+			@Html.LabelFor(m => m.Publisher, new { @class = "col-sm-3 label-control" })
+		</dt>
+
+		<dd>
+			@Html.TextBoxFor(m => m.Publisher, new { @class = "form-control" })
+		</dd>
+		<dt>
+			@Html.LabelFor(m => m.PublishingDate.Year, new { @class = "col-sm-3 label-control" })
+		</dt>
+
+		<dd>
+			@Html.TextBoxFor(m => m.PublishingDate.Year, new { @class = "form-control" })
+		</dd>
+		<dt>
+			@Html.LabelFor(m => m.Title, new { @class = "col-sm-3 label-control" })
+		</dt>
+
+		<dd>
+			@Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+		</dd>
+		<dt>
+			@Html.LabelFor(m => m.Author, new { @class = "col-sm-3 label-control" })
+		</dt>
+
+		<dd>
+			@Html.TextBoxFor(m => m.Author,new { @class = "form-control" })
+		</dd>
+	</dl>
+        <input type="submit" class="btn btn-warning form-control" />
+    }
+</div>
+<hr />
+<div  id="SearchDiv">
+
+</div>    

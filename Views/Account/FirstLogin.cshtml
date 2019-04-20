@@ -1,0 +1,35 @@
+﻿@model ForgotPasswordViewModel
+@{
+    ViewBag.Title = "First Login .... change Your Password and Upload Your Photo?";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+@using (Ajax.BeginForm("ForgotPassword", "Account", "", new AjaxOptions()
+    {
+        HttpMethod = "POST",
+        OnSuccess = "Edit"
+    }, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+    {
+    @Html.AntiForgeryToken()
+    <h4>Enter your email.</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Email Link" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

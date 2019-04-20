@@ -1,0 +1,47 @@
+﻿@model Member
+@{
+    ViewBag.Title = "update";
+}
+
+<h2>update</h2>
+
+<form method="post" class="form-horizontal">
+
+    @*<div class="form-group">
+        <label class="col-sm-3 control-label" for="Id"> Id </label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="Id" />
+                </div>
+    </div>*@
+
+
+    <div>
+        <label class="label-info"> Edit First Name</label>
+        <input type="text" name="Fname" value="@Model.ApplicationUser.Fname"/>
+    </div>
+    <div>
+        <label class="label-info"> Edit Last Name</label>
+        <input type="text" name="Lname" value="@Model.ApplicationUser.Lname" />
+    </div>
+    <div>
+        <label class="label-info"> Edit Birth Date</label>
+        <input type="text" name="BDate" value="@Model.ApplicationUser.BDate" />
+    </div>
+    <div>
+        <label class="label-info"> Edit Address</label>
+        <input type="text" name="Address" value="@Model.ApplicationUser.Address" />
+    </div>
+    <div>
+        <label class="label-info"> Edit Email</label>
+        <input type="text" name="Email" value="@Model.ApplicationUser.Email"/>
+    </div>
+
+    <div>
+        <input type="submit" value="Update" class="btn-group" />
+
+    </div>
+
+
+
+
+</form>

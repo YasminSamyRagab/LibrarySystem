@@ -1,0 +1,57 @@
+﻿@model Book
+@{
+    ViewBag.Title = "Show Books";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Show Books</h2>
+<h2>Add Books</h2>
+@Ajax.ActionLink("Add Book", "AddBook", "Book", "", new AjaxOptions()
+{
+    UpdateTargetId = "mdbdy",
+    InsertionMode = InsertionMode.Replace,
+    OnSuccess = "AddBook"
+}, new { @class = "btn btn-success" })
+
+<div id="div1">
+    @{Html.RenderAction("ShowBookspartial", "Book");}
+</div>
+
+<div class="modal" id="div3">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Edit Profile
+            </div>
+            <div class="modal-body" id="mdbdy">
+            </div>
+            <div class="modal-footer">
+                <button class="close" data-dismiss="modal">&times;</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1/jquery-ui.js"></script>
+<script>
+    function DeleteBook(object) {
+        alert("you delete this book");
+        $(object).parents("tr").remove();
+    };
+
+    function EditBook() {
+        $("#div3").modal({ show: true });
+    }
+    function AddBook() {
+        $("#div3").modal({ show: true });
+    };
+
+    function BookEdited() {
+        $("#div3").modal('hide');
+    }
+
+    function BookAdded() {
+        $("#div3").modal('hide');
+    };
+</script>

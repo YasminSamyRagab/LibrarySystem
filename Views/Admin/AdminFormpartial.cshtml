@@ -1,0 +1,95 @@
+﻿@model IEnumerable<Admin>
+<h2>Show Admins</h2>
+<div>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr >
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.Fname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.Lname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.BDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.PhoneNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.HireDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.Salary)
+                </th>
+                <th>
+                    Operations
+                </th>
+            </tr>
+        </thead>
+        <tbody id="tablebody">
+            @foreach (var item in Model)
+            {
+                <tr id="@item.Id">
+                    <td class="advFname">
+                        @item.ApplicationUser.Fname
+                    </td>
+                    <td class="advLname">
+                        @item.ApplicationUser.Lname
+                    </td>
+                    <td class="advBDate">
+                        @item.ApplicationUser.BDate.Date
+                    </td>
+                    <td class="advAddress">
+                        @item.ApplicationUser.Address
+                    </td>
+                    <td class="advEmail">
+                        @item.ApplicationUser.Email
+                    </td>
+                    <td class="advPhoneNumber">
+                        @item.ApplicationUser.PhoneNumber
+                    </td>
+                    <td class="advHireDate">
+                        @item.HireDate.Date
+                    </td>
+                    <td class="advSalary">
+                        @item.Salary
+                    </td>
+                    <td>
+                        @Ajax.ActionLink("Edit", "EditAdmin", "Admin", new { id = item.Id },
+                        new AjaxOptions()
+                        {
+                            UpdateTargetId = "mdbdy",
+                            InsertionMode = InsertionMode.Replace,
+                            OnComplete = "EditAdmin"
+                        },
+                       new { @class = "btn btn-success" })
+                        |
+                        @Ajax.ActionLink("Delete", "DeleteAdmin", "Admin", new { id = item.Id },
+                     new AjaxOptions()
+                     {
+                         OnComplete = "DeleteAdmin(this)"
+                     }, new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+                }
+               
+            
+        </tbody>
+    </table>
+    @Html.ActionLink("View Profile", "ViewProfile","BasicAdmin")
+    ||
+    @Html.ActionLink("Dash Board", "DashBoard", "BasicAdmin")
+    ||
+    @Html.ActionLink("Employees Data", "EmployeeForm", "Employee")
+    ||
+    @Html.ActionLink("Members Data", "MemberForm", "Member")
+    
+</div>
+

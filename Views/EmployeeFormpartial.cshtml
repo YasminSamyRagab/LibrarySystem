@@ -1,0 +1,109 @@
+﻿@model IEnumerable<Employee>
+<h2>Show Employees</h2>
+
+<div>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>
+
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.Fname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.Lname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.BDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.PhoneNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.UserName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.HireDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.Salary)
+                </th>
+                <th>
+                    Operations
+                </th>
+
+
+            </tr>
+        </thead>
+        <tbody id="tablebody">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @if (item.ChangedByBasicAdminToAdmins == true)
+                        {
+
+
+                            <h1>
+                                this data has been modified.
+                            </h1>
+                            @Html.HiddenFor(s => item.Id)
+                            @*<input type="submit" class="btn btn-warning form-control" value="Ok" />*@
+                            @Ajax.ActionLink("Edit", "CheckEmplyees", new { id = item.Id }, new AjaxOptions { HttpMethod = "POST" }, new { @class = "btn btn-success" })
+
+
+                        }
+                    </td>
+                    <td>
+                        @item.ApplicationUser.Fname
+                    </td>
+                    <td>
+                        @item.ApplicationUser.Lname
+                    </td>
+                    <td>
+                        @item.ApplicationUser.BDate
+                    </td>
+                    <td>
+                        @item.ApplicationUser.Address
+                    </td>
+                    <td>
+                        @item.ApplicationUser.Email
+                    </td>
+                    <td>
+                        @item.ApplicationUser.PhoneNumber
+                    </td>
+                    <td>
+                        @item.ApplicationUser.UserName
+                    </td>
+                    <td>
+                        @item.HireDate
+                    </td>
+                    <td>
+                        @item.Salary
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "EditEmployee", "Admin", new { id = item.Id }, new { @class = "btn btn-success" })
+                        |
+                        @Ajax.ActionLink("Delete", "DeleteEmployee", "Admin", new { id = item.Id }, new AjaxOptions() { }, new { @class = "btn btn-danger" })
+                        |
+                        @Html.ActionLink("Details", "DetailsEmployee", "Admin", new { id = item.Id }, new { @class = "btn btn-info" })
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @Html.ActionLink("View Profile", "ViewProfile")
+    |
+    @Html.ActionLink("Show Books", "ShowBooks")
+</div>
+
+
+

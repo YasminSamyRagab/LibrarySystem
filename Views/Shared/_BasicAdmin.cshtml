@@ -1,0 +1,105 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>_BasicAdmin</title>
+    <link href="~/Content/bootstrap2.css" rel="stylesheet" />
+    <link href="~/Content/organicfoodicons.css" rel="stylesheet" />
+    <link href="~/Content/demo.css" rel="stylesheet" />
+    <link href="~/Content/component.css" rel="stylesheet" />
+    <script src="~/Scripts/modernizr-custom.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+</head>
+<body>
+    @RenderBody(){ 
+
+    }
+    <!-- Main container -->
+    <div class="container">
+        <!-- Blueprint header -->
+        <header class="bp-header cf">
+            <div class="dummy-logo">
+                <div class="dummy-icon foodicon foodicon--coconut"></div>
+                <h2 class="dummy-heading">Library</h2>
+            </div>
+            <div class="bp-header__main">
+                <span class="bp-header__present"> <span class="bp-tooltip bp-icon bp-icon--about" data-content="The Blueprints are a collection of basic and minimal website concepts, components, plugins and layouts with minimal style for easy adaption and usage, or simply for inspiration."></span></span>
+                <h1 class="bp-header__title"></h1>
+                <nav class="bp-nav">
+                    <a class="bp-nav__item bp-icon bp-icon--prev" href="http://tympanus.net/Blueprints/PageStackNavigation/" data-info="previous Blueprint"><span>Previous Blueprint</span></a>
+                    <a class="bp-nav__item bp-icon bp-icon--drop" href="http://tympanus.net/codrops/?p=25521" data-info="back to the Codrops article"><span>back to the Codrops article</span></a>
+                    <a class="bp-nav__item bp-icon bp-icon--archive" href="http://tympanus.net/codrops/category/blueprints/" data-info="Blueprints archive"><span>Go to the archive</span></a>
+                </nav>
+            </div>
+        </header>
+        <button class="action action--open" aria-label="Open Menu"><span class="icon icon--menu"></span></button>
+        <nav id="ml-menu" class="menu">
+            <button class="action action--close" aria-label="Close Menu"><span class="icon icon--cross"></span></button>
+            <div class="menu__wrap">
+                <ul data-menu="main" class="menu__level" tabindex="-1" role="menu" aria-label="All">
+                    <li class="menu__item" role="menuitem"><a class="menu__link" data-submenu="submenu-1" aria-owns="submenu-1" href="#">Home</a></li>
+                    <li class="menu__item" role="menuitem"><a class="menu__link" data-submenu="submenu-2" aria-owns="submenu-2" href="#">Employess</a></li>
+                    <li class="menu__item" role="menuitem"><a class="menu__link" data-submenu="submenu-3" aria-owns="submenu-3" href="#">Admins</a></li>
+                    <li class="menu__item" role="menuitem"><a class="menu__link" data-submenu="submenu-4" aria-owns="submenu-4" href="#">Members</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+
+
+    <script src="~/Scripts/classie.js"></script>
+    <script src="~/Scripts/dummydata.js"></script>
+    <script src="~/Scripts/main.js"></script><script>
+        (function () {
+            var menuEl = document.getElementById('ml-menu'),
+                mlmenu = new MLMenu(menuEl, {
+
+                    backCtrl: false,
+
+                    onItemClick: loadDummyData
+                });
+
+
+            var openMenuCtrl = document.querySelector('.action--open'),
+                closeMenuCtrl = document.querySelector('.action--close');
+
+            openMenuCtrl.addEventListener('click', openMenu);
+            closeMenuCtrl.addEventListener('click', closeMenu);
+
+            function openMenu() {
+                classie.add(menuEl, 'menu--open');
+                closeMenuCtrl.focus();
+            }
+
+            function closeMenu() {
+                classie.remove(menuEl, 'menu--open');
+                openMenuCtrl.focus();
+            }
+
+
+            var gridWrapper = document.querySelector('.content');
+
+            function loadDummyData(ev, itemName) {
+                ev.preventDefault();
+
+                closeMenu();
+                gridWrapper.innerHTML = '';
+                classie.add(gridWrapper, 'content--loading');
+                setTimeout(function () {
+                    classie.remove(gridWrapper, 'content--loading');
+                    gridWrapper.innerHTML = '<ul class="products">' + dummyData[itemName] + '<ul>';
+                }, 700);
+            }
+        })();
+</script>
+
+</body>
+</html>

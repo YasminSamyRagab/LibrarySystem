@@ -1,0 +1,74 @@
+﻿@{ 
+    Layout ="~/Views/Shared/_Layout.cshtml" ;
+}
+    <div class="content">
+             <br/><br />
+            <div class="row">
+                <div class="col-sm-5 col-lg-5">
+                    <div class="card text-center text-white" >
+                        <div class="card-header">Members</div>
+                        <div class="card-body">
+                            <h5 class="card-title">Total Members : @ViewBag.totalMembers</h5>
+                            <h4> New members </h4>
+                            <br />
+                            <div class="progress">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: @ViewBag.newMembers%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">@((@ViewBag.newMembers) / 10)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-5 col-lg-5">
+                    <div class="card text-center text-white">
+                        <div class="card-header">Employees</div>
+                        <div class="card-body">
+                            <h5 class="card-title">Total Number of Employees: @ViewBag.totalEmps</h5>
+                            <br />
+                            <p class="card-text">
+                                <div class="progress">
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: @ViewBag.newEmps%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">@((@ViewBag.newEmps) / 10)</div>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <br />
+        <div class="row">
+            <div class="col-sm-5 col-lg-5">
+                <div class="card text-white text-center" >
+                    <div class="card-body">
+                        <h5 class="card-title">Total Number of visitors: @ApplicationInstance.Application["Totaluser"]</h5>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <br /><br />
+        <div class="container">
+            <div class="col col-lg-12">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Book Name</th>
+                        <th>No of Available of copies</th>
+                        <th>No of borrowed books</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.books as IEnumerable<Book>)
+                     {
+                        <tr>
+                            <td>@item.Title</td>
+                            <td>@item.NoOfAvailableCopies</td>
+                            <td>@item.NoOfBorrowedCopies</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+                <div>
+                    <a href="/BasicAdmin/ViewProfile" class="btn btn-dark">Back to Profile</a>
+                </div>
+            </div>
+            </div>
+</div>
+ 

@@ -1,0 +1,116 @@
+﻿@model IEnumerable<Book>
+@{
+	ViewBag.Title = "ReturnBooks";
+}
+
+<h2>ReturnBooks</h2>
+<div>
+	@*@using (Html.BeginForm())
+		{
+			<label>Book Title</label>
+			<div class="form-group">
+				<input id="searchInput" name="searchInput" />
+				<input type="submit" value="Search" />
+			</div>
+		}*@
+	<input id="searchInput" name="searchInput" onblur="setHref()" />
+	<a href="" class="btn btn-info" id="ahref" onclick="">Search</a>
+	@if (Model != null)
+	{
+
+		<table class="table table-bordered" id="table">
+			<tr>
+				<th>Title</th>
+				<th>Author</th>
+				<th>Publisher</th>
+				<th>Category</th>
+				<th>Available Copies</th>
+				<th>Status</th>
+			</tr>
+			@foreach(Book bk in Model)
+			{
+				<tr>
+					<td>@bk.Title</td>
+					<td>@bk.Author</td>
+					<td>@bk.Publisher</td>
+					<td>@bk.Category</td>
+					<td>@bk.NoOfAvailableCopies</td>
+					<td>
+						<button class="btn btn-secondary" onclick="changeButton(this,@bk.BookID)">Select</button>
+						@*<a href="/Employee/EnterEmail/@bk.BookID" class="btn btn-info" onclick="">Return</a>*@  @*localStorage.setItem(email, document.getElementById('email')*@
+						@*<a href="/student/delete/@bk.BookID" onclick="return confirm('do you want to delete student')" class="btn btn-danger">Delete</a>*@
+					</td>
+				</tr>
+			}
+		</table>
+		using (Html.BeginForm())
+		{
+		<div class="form-group">
+			@Html.Label("Email", new { @class = "col-md-2 control-label" })
+			<div class="col-md-4">
+				@Html.TextBox("email", "", new { @type = "email", @class = "form-control" })
+			</div>
+			<input type="hidden" name="bookid" id="bookid" />
+			<input class="col-md-2" type="button" value="Return" id="button" onclick="Check(this)" />
+			<input type="hidden" name="action" id="action" value="Borrow" />
+			<select onchange='document.getElementById("action").value = document.getElementById("button").value = $("#select").find(":selected").text()' id="select">
+				<option>Borrow</option>
+				<option>Read</option>
+			</select>
+		</div>
+		}
+	}
+	@if (ViewBag.Error != null)
+	{
+		if (ViewBag.Error == "")
+		{
+			<span class="font-weight-bold text-success">Successfully Borrowed</span>
+		}
+		else
+		{
+			<span class="font-weight-bold glyphicon-text-color text-danger">@ViewBag.Error</span>
+		}
+	}<br />
+	@if(ViewBag.Late!=null)
+	{
+		<script>var result = confirm('@ViewBag.Late\n Borrow Date: @ViewBag.BorrowDate\n Return Date: @ViewBag.ReturnDate \n Borrow Duration: @ViewBag.Duration Days');
+			if (result)
+			{
+				var form = document.createElement("form");
+				form.setAttribute("method", "POST");
+				form.setAttribute("action", "/MemberBook/Prevent");
+
+						var hiddenField2 = document.createElement("input");
+						hiddenField2.setAttribute("type", "hidden");
+						hiddenField2.setAttribute("name", "email");
+						hiddenField2.setAttribute("value", '@ViewBag.Email');
+
+						form.appendChild(hiddenField2);
+				}
+				console.log(form)
+				document.body.appendChild(form);
+				form.submit();
+		</script>
+		<span class="font-weight-bold glyphicon-text-color text-danger">@ViewBag.Late</span>
+	}
+</div>
+<script>
+    $("#searchInput").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: '@Url.Action("GetSearchValue", "MemberBook")',
+                dataType: "json",
+                data: { search: $("#searchInput").val() },
+                success: function (data) {
+					response($.map(data, function (item) {
+						return { label: item.Title, value: item.Title };
+                    }));
+                },
+                error: function (xhr, status, error) {
+                    alert("Error");
+                }
+            });
+        }
+    });
+</script>
+<script src="~/Scripts/LibraryBorrow.js"></script>

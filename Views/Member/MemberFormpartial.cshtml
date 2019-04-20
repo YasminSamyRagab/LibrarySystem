@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Member>
+<h2>Show Members</h2>
+<div>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr >
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.Fname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.Lname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.BDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.PhoneNumber)
+                </th>
+                <th>
+                    Operations
+                </th>
+            </tr>
+        </thead>
+        <tbody id="tablebody">
+            @foreach (var item in Model)
+            {
+                <tr id="@item.Id">
+                    <td class="memvFname">
+                        @item.ApplicationUser.Fname
+                    </td>
+                    <td class="memvLname">
+                        @item.ApplicationUser.Lname
+                    </td>
+                    <td class="memvBDate">
+                        @item.ApplicationUser.BDate.Date
+                    </td>
+                    <td class="memvAddress">
+                        @item.ApplicationUser.Address
+                    </td>
+                    <td class="memvEmail">
+                        @item.ApplicationUser.Email
+                    </td>
+                    <td class="memvPhoneNumber">
+                        @item.ApplicationUser.PhoneNumber
+                    </td>
+                    <td>
+                        @Ajax.ActionLink("Edit", "EditMember", "Member", new { id = item.Id },
+                        new AjaxOptions()
+                        {
+                            UpdateTargetId = "mdbdy",
+                            InsertionMode = InsertionMode.Replace,
+                            OnComplete = "EditMember"
+                        },
+                       new { @class = "btn btn-success" })
+                        |
+                        @Ajax.ActionLink("Delete", "DeleteMember", "Member", new { id = item.Id },
+                     new AjaxOptions()
+                     {
+                         OnComplete = "DeleteMember(this)"
+                     }, new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+                }
+               
+            
+        </tbody>
+    </table>
+    @Html.ActionLink("View Profile", "ViewProfile", "BasicAdmin")
+    <p>||</p>
+    @Html.ActionLink("Dash Board", "DashBoard", "BasicAdmin")
+    <p>||</p>
+    @Html.ActionLink("Admins Data", "AdminForm", "Admin")
+    <p>||</p>
+    @Html.ActionLink("Employees Data", "EmployeeForm", "Employee")
+   
+
+</div>
+

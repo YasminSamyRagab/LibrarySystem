@@ -1,0 +1,87 @@
+﻿@model Admin
+@{
+    ViewBag.Title = "Edit Admin";
+}
+<h2>Edit Admin</h2>
+<div>
+   @using (Ajax.BeginForm("EditAdmin", "Admin", "", new AjaxOptions()
+   {
+       HttpMethod = "POST",
+       OnComplete = "AdminFormEdit(this)"
+
+   }, new { @class = "form-horizontal", role = "form" }))
+   {
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <dl class="dl-horizontal">
+            <dd>
+                @Html.HiddenFor(model => model.ApplicationUser.Id, new { @id = "adId" })
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ApplicationUser.Fname)
+            </dt>
+            <dd >
+                @Html.TextBoxFor(model => model.ApplicationUser.Fname, new { @id = "adnFname" })
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ApplicationUser.Lname)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.ApplicationUser.Lname, new { @id = "adnLname" })
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ApplicationUser.BDate)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.ApplicationUser.BDate, "{0:dd/MM/yyyy}", new { @id = "adnBDate" })
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ApplicationUser.Address)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.ApplicationUser.Address, new { @id = "adnAddress" })
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ApplicationUser.Email)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.ApplicationUser.Email, new { @id = "adnEmail" })
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ApplicationUser.PhoneNumber)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.ApplicationUser.PhoneNumber, new { @id = "adnPhoneNumber" })
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ApplicationUser.UserName)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.ApplicationUser.UserName, new { @id = "adnUserName" })
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.HireDate)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.HireDate, "{0:dd/MM/yyyy}", new { @id = "adnHireDate" })
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Salary)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.Salary, new { @id = "adnSalary" })
+            </dd>
+        </dl>
+                <input type="submit" class="btn btn-warning form-control" />
+    }
+</div>
+
+@Scripts.Render("~/bundles/jqueryval")
+

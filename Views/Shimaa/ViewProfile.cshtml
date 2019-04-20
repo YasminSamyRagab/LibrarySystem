@@ -1,0 +1,69 @@
+﻿@model Member
+@{
+    ViewBag.Title = "ViewProfile";
+}
+
+<h2> Member ViewProfile</h2>
+
+@Html.ActionLink("Update", "update", "Member", null, new { @class = "btn btn-success" })
+@Html.ActionLink("Show Member Books", "ShowMemberBooks", "Member", null, new { @class = "btn btn-warning"})
+@Html.ActionLink("Show Arrived Books", "ShowArrivedBooks", "Member", null, new { @class = "btn btn-primary" })
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col"> Data</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">First Name</th>
+            <td>@Model.ApplicationUser.Fname</td>
+        </tr>
+
+        <tr>
+            <th scope="row">Last Name</th>
+            <td>@Model.ApplicationUser.Lname</td>
+       </tr>
+        <tr>
+            <th scope="row">Birth Date</th>
+            <td>@Model.ApplicationUser.BDate</td>
+       </tr>
+
+        <tr>
+            <th scope="row">Address</th>
+            <td>@Model.ApplicationUser.Address</td>
+        </tr>
+        <tr>
+            <th scope="row">Email</th>
+            <td>@Model.ApplicationUser.Email</td>
+        </tr>
+        </tbody>
+        </table>
+
+            @if (Model.ChangedByBasicAdmin == true)
+            {
+                @section scripts{
+                    <script>
+                        $(document).ready(function () {
+                            alert("Your Data Updated by Admin");
+                        });
+                    </script>
+                    }
+            }
+
+
+
+
+
+        @*
+            <div class="form-group">
+                    @Html.LabelFor(m =>m.ApplicationUser.Fname, new{ @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.ApplicationUser.Fname, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.ApplicationUser.Fname, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+        *@
+

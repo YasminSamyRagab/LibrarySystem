@@ -1,0 +1,100 @@
+﻿@model IEnumerable<Book>
+<h2>Show Books</h2>
+<div>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(s=> s.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.Author)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.Category)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.Edition)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.NoOfCopies)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.Pages)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.Publisher)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.PublishingDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.ShelfNumber)
+                </th>          
+                <th>
+
+                    Operations
+                </th>
+            </tr>
+        </thead>
+        <tbody id="tablebody">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Title
+                    </td>
+                    <td>
+                        @item.Author
+                    </td>
+                    <td>
+                        @item.Category
+                    </td>
+                    <td>
+                        @item.Edition
+                    </td>
+                    <td>
+                        @item.NoOfCopies
+                    </td>
+                    <td>
+                        @item.Pages
+                    </td>
+                    <td>
+                        @item.Publisher
+                    </td>
+                    <td>
+                        @item.PublishingDate.Date
+                    </td>
+                    <td>
+                        @item.ShelfNumber
+                    </td>
+                    <td>
+                        @Ajax.ActionLink("Edit", "EditBook", "Book", new { id = item.BookID },
+                        new AjaxOptions()
+                        {
+                            UpdateTargetId = "mdbdy",
+                            InsertionMode = InsertionMode.Replace,
+                            OnSuccess = "EditBook"
+                        },
+                       new { @class = "btn btn-success" })
+                        |
+                        @Ajax.ActionLink("Delete", "DeleteBook", "Book", new { id = item.BookID },
+                     new AjaxOptions()
+                     {
+                         OnSuccess = "DeleteBook(this)"
+                     }, new { @class = "btn btn-danger" })
+                      
+                    </td>
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+@Html.ActionLink("Show Employees", "ShowEmployees", "Employees")
+    |
+@Html.ActionLink("View Profile", "ViewProfile", "Admin")
+</div>
+
+
+

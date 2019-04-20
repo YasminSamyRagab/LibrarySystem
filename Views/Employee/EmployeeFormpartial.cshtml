@@ -1,0 +1,105 @@
+﻿@model IEnumerable<Employee>
+<h2>Show Employees</h2>
+<div>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr >
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.Fname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.Lname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.BDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.ApplicationUser.PhoneNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.HireDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(s => s.Salary)
+                </th>
+                <th>
+                    Operations
+                </th>
+            </tr>
+        </thead>
+        <tbody id="tablebody">
+            @foreach (var item in Model)
+            {
+                <tr id="@item.Id">
+                    <td class="empvFname">
+                        @item.ApplicationUser.Fname
+                    </td>
+                    <td class="empvLname">
+                        @item.ApplicationUser.Lname
+                    </td>
+                    <td class="empvBDate">
+                        @item.ApplicationUser.BDate.Date
+                    </td>
+                    <td class="empvAddress">
+                        @item.ApplicationUser.Address
+                    </td>
+                    <td class="empvEmail">
+                        @item.ApplicationUser.Email
+                    </td>
+                    <td class="empvPhoneNumber">
+                        @item.ApplicationUser.PhoneNumber
+                    </td>
+                    <td class="empvHireDate">
+                        @item.HireDate.Date
+                    </td>
+                    <td class="empvSalary">
+                        @item.Salary
+                    </td>
+                    <td>
+                        @Ajax.ActionLink("Edit", "EditEmployee", "Employee", new { id = item.Id },
+                        new AjaxOptions()
+                        {
+                            UpdateTargetId = "mdbdy",
+                            InsertionMode = InsertionMode.Replace,
+                            OnComplete = "EditEmployee"
+                        },
+                       new { @class = "btn btn-success" })
+                        |
+                        @Ajax.ActionLink("Delete", "DeleteEmployee", "Employee", new { id = item.Id },
+                     new AjaxOptions()
+                     {
+                         OnComplete = "DeleteEmployee(this)"
+                     }, new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+                }
+               
+            
+        </tbody>
+    </table>
+    @*admin*@
+@if (Session["userRole"].ToString() == "Admin")
+{
+    @Html.ActionLink("View Profile", "ViewProfile", "Admin")
+    <p>||</p>
+    @Html.ActionLink("Show Books", "ShowBooks", "Book")
+}
+    @*//basicadmin*@
+@if (Session["userRole"].ToString() == "BasicAdmin")
+{
+    @Html.ActionLink("View Profile", "ViewProfile", "BasicAdmin")
+    <p>||</p>
+    @Html.ActionLink("Dash Board", "DashBoard", "BasicAdmin")
+    <p>||</p>
+    @Html.ActionLink("Admins Data", "AdminForm", "Admin")
+    <p>||</p>
+    @Html.ActionLink("Members Data", "MemberForm", "Member")
+}
+</div>
+

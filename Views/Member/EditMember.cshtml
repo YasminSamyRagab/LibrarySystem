@@ -1,0 +1,87 @@
+﻿@model Employee
+@{
+    ViewBag.Title = "Edit Employee";
+}
+<h2>Edit Employee</h2>
+<div>
+   @using (Ajax.BeginForm("EditEmployee", "Employee", "", new AjaxOptions()
+   {
+       HttpMethod = "POST",
+       OnComplete = "EmployeeFormEdit(this)"
+
+   }, new { @class = "form-horizontal", role = "form" }))
+   {
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <dl class="dl-horizontal">
+            <dd>
+                @Html.HiddenFor(model => model.ApplicationUser.Id, new { @id = "empId" })
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ApplicationUser.Fname)
+            </dt>
+            <dd >
+                @Html.TextBoxFor(model => model.ApplicationUser.Fname, new { @id = "empnFname" })
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ApplicationUser.Lname)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.ApplicationUser.Lname, new { @id = "empnLname" })
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ApplicationUser.BDate)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.ApplicationUser.BDate, "{0:dd/MM/yyyy}", new { @id = "empnBDate" })
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ApplicationUser.Address)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.ApplicationUser.Address, new { @id = "empnAddress" })
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ApplicationUser.Email)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.ApplicationUser.Email, new { @id = "empnEmail" })
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ApplicationUser.PhoneNumber)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.ApplicationUser.PhoneNumber, new { @id = "empnPhoneNumber" })
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ApplicationUser.UserName)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.ApplicationUser.UserName, new { @id = "empnUserName" })
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.HireDate)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.HireDate, "{0:dd/MM/yyyy}", new { @id = "empnHireDate" })
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Salary)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.Salary, new { @id = "empnSalary" })
+            </dd>
+        </dl>
+                <input type="submit" class="btn btn-warning form-control" />
+    }
+</div>
+
+@Scripts.Render("~/bundles/jqueryval")
+

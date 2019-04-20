@@ -1,0 +1,74 @@
+﻿@model Admin
+
+<h2> @ViewBag.Title</h2>
+<div>
+    @using (Ajax.BeginForm("EditProfile", "Admin", "", new AjaxOptions()
+    {
+        HttpMethod = "POST",
+        OnSuccess= "Edit"
+    },  new { enctype = "multipart/form-data" , @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.ApplicationUser.Fname)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.ApplicationUser.Fname, new { @id = "mfname" })
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ApplicationUser.Lname)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.ApplicationUser.Lname, new { @id = "mlname" })
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ApplicationUser.BDate)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.ApplicationUser.BDate, "{0:dd/MM/yyyy}", new { @id = "mBDate" })
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ApplicationUser.Address)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.ApplicationUser.Address, new { @id = "mAddress" })
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ApplicationUser.Email)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.ApplicationUser.Email, new { @id = "mEmail" })
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ApplicationUser.PhoneNumber)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.ApplicationUser.PhoneNumber, new { @id = "mPhoneNumber" })
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ApplicationUser.Photo)
+            </dt>
+
+            @Html.HiddenFor(model => model.Salary)
+            @Html.HiddenFor(model => model.Id)
+
+        </dl>
+        <input type="file" value="upload photo" name="img" accept="image/*" />
+        <input type="submit" class="btn btn-warning form-control" />
+    }
+   
+</div>
+
+@Scripts.Render("~/bundles/jqueryval")   
+
+
+
+

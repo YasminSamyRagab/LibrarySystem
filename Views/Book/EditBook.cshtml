@@ -1,0 +1,85 @@
+﻿@model Book
+@{
+    ViewBag.Title = "Edit Book";
+}
+
+<h2>Edit Book</h2>
+<div>
+  @using (Ajax.BeginForm("EditBook", "Book", "", new AjaxOptions()
+  {
+      HttpMethod = "POST",
+      OnSuccess = "BookEdited"
+
+  }, new { @class = "form-horizontal", role = "form" }))
+  {
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <dl class="dl-horizontal">
+            @Html.HiddenFor(e => e.BookID)
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.Title)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Author)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.Author)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Category)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.Category)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Edition)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.Edition)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.NoOfCopies)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.NoOfCopies)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Pages)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.Pages)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Publisher)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.Publisher)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.PublishingDate)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.PublishingDate.Date)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ShelfNumber)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.ShelfNumber)
+            </dd>
+        </dl>
+        <input type="submit" class="btn btn-warning form-control" />
+    }
+</div>
+@Scripts.Render("~/bundles/jqueryval")

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<MemberBook>
+@{
+    ViewBag.Title = "ShowMemberBooks";
+}
+
+<h2>ShowMemberBooks</h2>
+
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Book Title</th>
+            <th scope="col"> Return Data</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @foreach (var item in Model)
+            {
+                if (item.BorrowCount >= 1)
+                {
+
+                    @*<th scope="row"> Book Title </th>*@
+                    <td> @item.Book.Title  </td>
+
+                    @*<th scope="row"> Return Date </th>*@
+                    <td> @item.ReturnDate </td>
+
+                }
+            }
+        </tr>
+
+        @Html.ActionLink("Back", "ViewProfile", "Member", null, new { @class = "btn btn-primary" })
+
+    </tbody>
+</table>

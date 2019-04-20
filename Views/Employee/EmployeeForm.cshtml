@@ -1,0 +1,124 @@
+﻿@{
+    ViewBag.Title = "Show Employees";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>search for Employees by first name and last name</h2>
+<input id="searchInput" name="searchInput" onblur="setHref()"/>
+<a href="" class="btn btn-info" id="ahref" >Return</a>
+
+@if (Session["userRole"].ToString() == "Admin")
+{
+    <h2>Add Employees</h2>
+    @Ajax.ActionLink("Show Nofifcation", "EmployeeNotif", "Employee", "", new AjaxOptions()
+    {
+        UpdateTargetId = "mdbdy",
+        InsertionMode = InsertionMode.Replace,
+        OnComplete = "NotifEmployee"
+    }, new { @class = "btn btn-success" })
+
+    @Ajax.ActionLink("Add Employee", "AddEmployee", "Employee", "", new AjaxOptions()
+    {
+        UpdateTargetId = "mdbdy",
+        InsertionMode = InsertionMode.Replace,
+        OnComplete = "AddEmployee"
+    }, new { @class = "btn btn-success" })
+}
+
+<div id="div1">
+    @{Html.RenderAction("EmployeeFormpartial", "Employee");}
+</div>
+
+
+<div class="modal" id="div3">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Edit Profile
+            </div>
+            <div class="modal-body" id="mdbdy">
+            </div>
+            <div class="modal-footer">
+                <button class="close" data-dismiss="modal">&times;</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<link href="~/Scripts/jquery-ui-themes-1.12.1/jquery-ui-themes-1.12.1/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui-1.12.1/jquery-ui.js"></script>
+
+    <script>
+        $("#searchInput").autocomplete
+            ({
+        source: function (request, response) {
+            $.ajax({
+                url: '@Url.Action("GetSearchValue", "Employee")',
+                dataType: "json",
+                data: { search: $("#searchInput").val() },
+                success: function (data) {
+                    response($.map(data, function (item) {
+                        return {
+                            label: item.ApplicationUser.Fname + " " + item.ApplicationUser.Lname
+                           , value: item.ApplicationUser.Fname + " " + item.ApplicationUser.Lname
+                        };
+                    }));
+                },
+                error: function (xhr, status, error) {
+                    alert("Error");
+                }
+            });
+        }
+    });
+    function setHref() {
+        var search = $("#searchInput").val();
+        document.getElementById('ahref').href = '/Employee/EmployeeForm/?name=' + search;
+        }
+
+        function DeleteEmployee(object) {
+            alert("you delete this employee");
+            $(object).parents("tr").remove();
+        };
+        function EmployeeNotifed(object) {
+            alert("you delete this employee");
+            console.log("****")
+            $(object).parents("tr").remove();
+        }
+       
+        function EditEmployee() {
+            $("#div3").modal({ show: true });
+        }
+        function AddEmployee() {
+            $("#div3").modal({ show: true });
+        };
+        function NotifEmployee() {
+            $("#div3").modal({ show: true });
+        };
+
+        function EmployeeFormEdit(object) {
+            var empid ="#"+ $("#empId").val();
+            $(empid).children(".empvFname").html($("#empnFname").val())
+            $(empid).children(".empvLname").html($("#empnLname").val())
+            $(empid).children(".empvBDate").html($("#empnBDate").val())
+            $(empid).children(".empvAddress").html($("#empnAddress").val())
+            $(empid).children(".empvEmail").html($("#empnEmail").val())
+            $(empid).children(".empvPhoneNumber").html($("#empnPhoneNumber").val())
+            $(empid).children(".empvHireDate").html($("#empnHireDate").val())
+            $(empid).children(".empvSalary").html($("#empnSalary").val())
+
+            $("#div3").modal('hide');
+        }
+
+        function EmployeeFormAdd() {
+            $("#div3").modal('hide');
+        };
+</script>
+
+    
+
+
+
+

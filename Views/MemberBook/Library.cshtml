@@ -1,0 +1,91 @@
+﻿@model IEnumerable<Book>
+@{
+	/**/
+
+	ViewBag.Title = "Borrow";
+}
+
+<h2 id="title">Borrow</h2>
+
+<table class="table table-bordered" id="table">
+	<tr>
+		<th>Title</th>
+		<th>Author</th>
+		<th>Publisher</th>
+		<th>Category</th>
+		<th>Available Copies</th>
+		<th>Status</th>
+	</tr>
+	@foreach (Book bk in Model)
+	{
+		<tr>
+			<td>@bk.Title</td>
+			<td>@bk.Author</td>
+			<td>@bk.Publisher</td>
+			<td>@bk.Category</td>
+			<td>@bk.NoOfAvailableCopies</td>
+			<td>
+				@if (bk.NoOfAvailableCopies > 0)
+				{
+					<button class="btn btn-info" onclick="changeButton(this,@bk.BookID )">Select</button>
+				}
+				else
+				{
+					<button class="btn btn-info" onclick="changeButton(this,@bk.BookID )" disabled>Select</button>
+				}
+
+				@*<a href="/student/delete/@bk.BookID" onclick="return confirm('do you want to delete student')" class="btn btn-danger">Delete</a>*@
+			</td>
+		</tr>
+	}
+</table>
+@using (Html.BeginForm())
+{
+	<div class="form-group">
+		@Html.Label("Email", new { @class = "col-md-2 control-label" })
+		<div class="col-md-4">
+			@Html.TextBox("email", "", new { @type = "email", @class = "form-control" })
+		</div>
+		<input type="hidden" name="action" id="action" value="Borrow"/>
+		<input type="hidden" name="bookid" id="bookid" />
+		<input class="col-md-2" type="button" value="Borrow" id="button" onclick="Check(this)" />
+		<select onchange='document.getElementById("action").value = document.getElementById("button").value = document.getElementById("title").innerText = $("#select").find(":selected").text()' id="select">
+			<option>Borrow</option>
+			<option>Read</option>
+		</select>
+	</div><br />
+}
+@*<a href="/student/create" class="btn btn-primary">Create</a>*@
+@if(ViewBag.Error!=null)
+{ 
+	if (ViewBag.Error == "")
+	{
+		<span class="font-weight-bold text-success">Successfully Borrowed</span>
+	}
+	else
+	{
+		<span class="font-weight-bold glyphicon-text-color text-danger">@ViewBag.Error</span>
+	}
+}
+@*@if (ViewBag.memberExists != null)
+	{
+		if (ViewBag.memberExists)
+		{
+			if (ViewBag.Borrowed != null)
+			{
+				if (ViewBag.Borrowed)
+				{
+					<span class="alert-success">Successfully Borrowed</span>
+				}
+				else
+				{
+					<span class="alert-danger">Not Enough Available Copies</span>
+				}
+			}
+		}
+		else
+		{
+			<span>This Member Doesn't Exist</span>
+		}
+	}*@
+<script src="~/Scripts/LibraryBorrow.js"></script>

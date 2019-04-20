@@ -1,0 +1,93 @@
+﻿@{
+    ViewBag.Title = "Show Members";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>search for Members by first name and last name</h2>
+<input id="searchInput" name="searchInput" onblur="setHref()"/>
+<a href="" class="btn btn-info" id="ahref" >Return</a>
+
+
+<div id="div1">
+    @{Html.RenderAction("MemberFormpartial", "Member");}
+</div>
+
+
+<div class="modal" id="div3">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Edit Profile
+            </div>
+            <div class="modal-body" id="mdbdy">
+            </div>
+            <div class="modal-footer">
+                <button class="close" data-dismiss="modal">&times;</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<link href="~/Scripts/jquery-ui-themes-1.12.1/jquery-ui-themes-1.12.1/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui-1.12.1/jquery-ui.js"></script>
+
+    <script>
+        $("#searchInput").autocomplete
+            ({
+        source: function (request, response) {
+            $.ajax({
+                url: '@Url.Action("GetSearchValue", "Member")',
+                dataType: "json",
+                data: { search: $("#searchInput").val() },
+                success: function (data) {
+                    response($.map(data, function (item) {
+                        return {
+                            label: item.ApplicationUser.Fname + " " + item.ApplicationUser.Lname
+                           , value: item.ApplicationUser.Fname + " " + item.ApplicationUser.Lname
+                        };
+                    }));
+                },
+                error: function (xhr, status, error) {
+                    alert("Error");
+                }
+            });
+        }
+    });
+    function setHref() {
+        var search = $("#searchInput").val();
+        document.getElementById('ahref').href = '/Member/MemberForm/?name=' + search;
+        }
+
+        function DeleteMember(object) {
+            alert("you delete this Member");
+            $(object).parents("tr").remove();
+        };
+
+       
+        function EditMember() {
+            $("#div3").modal({ show: true });
+        }
+
+
+        function MemberFormEdit(object) {
+            var memid ="#"+ $("#memId").val();
+            $(memid).children(".memvFname").html($("#memnFname").val())
+            $(memid).children(".memvLname").html($("#memnLname").val())
+            $(memid).children(".memvBDate").html($("#memnBDate").val())
+            $(memid).children(".memvAddress").html($("#memnAddress").val())
+            $(memid).children(".memvEmail").html($("#memnEmail").val())
+            $(memid).children(".memvPhoneNumber").html($("#memnPhoneNumber").val())
+            $("#div3").modal('hide');
+        }
+
+      
+</script>
+
+    
+
+
+
+
